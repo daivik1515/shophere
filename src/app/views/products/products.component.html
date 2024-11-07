@@ -1,0 +1,7 @@
+<div>
+@for (item of data(); track item.productId) {
+    <li>{{ item.productName }}</li>
+    } @empty {
+    <li>There are no items.</li>
+    }
+</div>
