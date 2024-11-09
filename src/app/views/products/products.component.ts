@@ -18,7 +18,6 @@ export class ProductsComponent implements OnInit{
 
   displayProducts()
   {
-    console.log("sdasd");
     this.ecomService.getProducts().subscribe((res:APIResponse)=>{
       this.data.set(res.data);
     })

@@ -1,7 +1,19 @@
-<div>
-@for (item of data(); track item.productId) {
-    <li>{{ item.productName }}</li>
-    } @empty {
-    <li>There are no items.</li>
-    }
+<div class="productpage">
+<div class="container">
+    <div class="row">
+        @for (item of data(); track item.productId) 
+        {
+            <div class="col-3" >
+                    <div class="card" style="width: 18rem;">
+                    <img id="image-height" [src]=item.productImageUrl class="card-img-top" alt="Not present">
+                    <div class="card-body">
+                    <h5 class="card-title">{{item.productName}}</h5>
+                    <p class="ctext">{{item.productDescription}}</p>
+                    <a href="#" class="btn btn-primary">Add To Cart</a>
+                    </div>
+                    </div>
+            </div>
+        }
+</div>
+</div>
 </div>
