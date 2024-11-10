@@ -6,6 +6,11 @@
 {
     height:500px
 }
+.card:hover
+{
+    background: #c5c9c8;
+    transition: width 2s;
+}
 .ctext
 {
     height: 100px;
@@ -24,4 +29,13 @@
 {
     overflow: hidden;
     height: 25px;
+}
+.productCategory
+{
+    position: absolute;
+    color: rgba(134, 128, 134, 0.447);
+    width: 75px;
+    overflow: hidden;
+    top: 60%;
+    right: 0
 }

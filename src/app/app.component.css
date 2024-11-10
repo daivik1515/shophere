@@ -1,0 +1,40 @@
+#signup
+{
+    position: absolute;
+    right: 3%;
+}
+#login
+{
+    position: absolute;
+    right: 10%
+}
+.register
+{
+    width: 500px;
+    height: 500px;
+    position: sticky;
+    left: 33%;
+    bottom: 20%;
+    background: rgb(246, 244, 244);
+    border: 2px solid rgb(85, 85, 101);
+    border-radius: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-shadow: 5px 5px 5px 5px #a29e9e;
+}
+.login
+{
+    width: 500px;
+    height: 500px;
+    position: sticky;
+    left: 33%;
+    bottom: 20%;
+    background: rgb(246, 244, 244);
+    border: 2px solid rgb(85, 85, 101);
+    border-radius: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-shadow: 5px 5px 5px 5px #a29e9e;
+}
+.loginpassword
+{
+    
+}

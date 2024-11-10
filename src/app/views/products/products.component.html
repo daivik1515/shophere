@@ -5,9 +5,11 @@
         {
             <div class="col-3" >
                     <div class="card" style="width: 18rem;">
+                    <div class="productCategory">{{item.categoryName}}</div>
                     <img id="image-height" [src]=item.productImageUrl class="card-img-top" alt="Not present">
                     <div class="card-body">
                     <h5 class="card-title">{{item.productName}}</h5>
+                    <h5 class="card-title">${{item.productPrice}}</h5>
                     <p class="ctext">{{item.productDescription}}</p>
                     <a href="#" class="btn btn-primary">Add To Cart</a>
                     </div>
