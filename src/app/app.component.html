@@ -25,6 +25,7 @@
 </nav>
 
 <router-outlet></router-outlet>
+<div class="login" *ngIf="showRegister" id="overlay"></div>
 <div class="register" *ngIf="showRegister">
   <div>
     <h2 style="text-decoration: underline;display: flex; justify-content: center;margin-top: 10%;">Register</h2>
@@ -52,6 +53,7 @@
       </div>
     </div>
 </div>
+<div class="login" *ngIf="showLogin" id="overlay"></div>
 <div class="login" *ngIf="showLogin">
   <div>
   <h2 style="text-decoration: underline;display: flex; justify-content: center;margin-top: 10%;">Login</h2>
