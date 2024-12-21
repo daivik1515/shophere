@@ -1,9 +1,12 @@
 <div class="productpage">
+<div class="searchBar">
+    <input type="text" name="" id="search" placeholder="Search for items...">
+</div>
 <div class="container">
-    <div class="row">
+    <div class="display-flex">
         @for (item of data(); track item.productId) 
         {
-            <div class="col-3" >
+            <div class="product-cards">
                     <div class="card" style="width: 18rem;">
                     <div class="productCategory">{{item.categoryName}}</div>
                     <img id="image-height" [src]=item.productImageUrl class="card-img-top" alt="Not present">
