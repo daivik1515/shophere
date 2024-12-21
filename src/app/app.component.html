@@ -10,10 +10,10 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item" id="signup">
-          <button (click)="openSignUp()" >Sign up</button>
+          <button class="btn btn-primary" (click)="openSignUp()" >Sign up</button>
         </li>
         <li class="nav-item" id="login">
-          <button (click)="openLogIn()">Login</button>
+          <button  class="btn btn-primary" (click)="openLogIn()">Login</button>
         </li>
       </ul>
       <!-- <form class="d-flex" role="search">
@@ -26,29 +26,49 @@
 
 <router-outlet></router-outlet>
 <div class="register" *ngIf="showRegister">
-  <div class="dialogRegister">
-    <h2 style="text-decoration: underline;display: flex; justify-content: center;">Register</h2>
-  </div>
   <div>
-    Username:
-  </div>
+    <h2 style="text-decoration: underline;display: flex; justify-content: center;margin-top: 10%;">Register</h2>
+    </div>
+    <div class="popupHeading">
+      <div id="username">
+      <span>Enter Name</span>
+      <input type="text" name="" id="usernameForm" class="formField">
+      </div>
+      <div id="registerUsername">
+        <span>Enter Username</span>
+        <input type="text" name="" class="formField">
+        </div>
+      <div id="password">
+        <span>Enter Password</span>
+        <input type="password" name=""  class="formField">
+      </div>
+      <div id="password">
+        <span>Confirm Password</span>
+        <input type="password" name=""  class="formField">
+      </div>
+      <div class="buttonsFlexLogin">
+        <button type="button" class="btn btn-primary loginButton">Register</button>
+        <button type="button" class="btn btn-danger loginCancel" (click)="closeRegister()">Cancel</button>
+      </div>
+    </div>
 </div>
 <div class="login" *ngIf="showLogin">
   <div>
-  <h2 style="text-decoration: underline;display: flex; justify-content: center;">Login</h2>
+  <h2 style="text-decoration: underline;display: flex; justify-content: center;margin-top: 10%;">Login</h2>
   </div>
-  <div class="loginpassword">
-    <div>
-    Username:
+  <div class="popupHeading">
+    <div id="username">
+    <span>Enter Username</span>
+    <input type="text" name="" id="usernameForm" class="formField">
     </div>
-    <div>
-      <input type="text" name="" id="">
+    <div id="password">
+      <span>Enter Password</span>
+      <input style="margin-left: 15px;" type="password" name=""  class="formField">
     </div>
-    <div>
-      Password:
-    </div>
-    <div>
-      <input type="password" name="" id="">
+    <div class="buttonsFlexLogin">
+      <button type="button" class="btn btn-primary loginButton">Login</button>
+      <button type="button" class="btn btn-danger loginCancel" (click)="closeLogin()">Cancel</button>
     </div>
   </div>
+ 
 </div>

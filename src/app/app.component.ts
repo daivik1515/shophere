@@ -25,5 +25,12 @@ export class AppComponent {
       this.showRegister=false;
     this.showLogin=true;
   }
- 
+ closeLogin()
+ {
+  this.showLogin=false;
+ }
+ closeRegister()
+ {
+  this.showRegister=false;
+ }
 }
