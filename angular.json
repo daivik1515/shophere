@@ -69,7 +69,8 @@
               "buildTarget": "shophere:build:production"
             },
             "development": {
-              "buildTarget": "shophere:build:development"
+              "buildTarget": "shophere:build:development",
+              "proxyConfig": "proxy.conf.json"     
             }
           },
           "defaultConfiguration": "development"

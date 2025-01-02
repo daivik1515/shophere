@@ -33,22 +33,22 @@
     <div class="popupHeading">
       <div id="username">
       <span>Enter Name</span>
-      <input type="text" name="" id="usernameForm" class="formField">
+      <input type="text" name="" id="usernameForm" [(ngModel)]="registerCustomer.Name" class="formField">
       </div>
       <div id="registerUsername">
-        <span>Enter Username</span>
-        <input type="text" name="" class="formField">
+        <span>Enter phone</span>
+        <input type="text" name="" [(ngModel)]="registerCustomer.MobileNo" class="formField">
         </div>
       <div id="password">
         <span>Enter Password</span>
-        <input type="password" name=""  class="formField">
+        <input type="password" name=""  [(ngModel)]="registerCustomer.Password" class="formField">
       </div>
       <div id="password">
         <span>Confirm Password</span>
         <input type="password" name=""  class="formField">
       </div>
       <div class="buttonsFlexLogin">
-        <button type="button" class="btn btn-primary loginButton">Register</button>
+        <button type="button" class="btn btn-primary loginButton" (click)="onRegister()">Register</button>
         <button type="button" class="btn btn-danger loginCancel" (click)="closeRegister()">Cancel</button>
       </div>
     </div>
@@ -61,14 +61,14 @@
   <div class="popupHeading">
     <div id="username">
     <span>Enter Username</span>
-    <input type="text" name="" id="usernameForm" class="formField">
+    <input [(ngModel)]="loginCustomer.UserName" type="text" name="" id="usernameForm" class="formField">
     </div>
     <div id="password">
       <span>Enter Password</span>
-      <input style="margin-left: 15px;" type="password" name=""  class="formField">
+      <input style="margin-left: 15px;" [(ngModel)]="loginCustomer.Password" type="password" name=""  class="formField">
     </div>
     <div class="buttonsFlexLogin">
-      <button type="button" class="btn btn-primary loginButton">Login</button>
+      <button type="button" class="btn btn-primary loginButton" (click)="onLogin()">Login</button>
       <button type="button" class="btn btn-danger loginCancel" (click)="closeLogin()">Cancel</button>
     </div>
   </div>

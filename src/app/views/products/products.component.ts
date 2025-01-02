@@ -12,7 +12,7 @@ import { APIResponse, ProductData } from '../../model/Product';
 export class ProductsComponent implements OnInit{
   ecomService=inject(EcommerceServiceService);
   data=signal<ProductData[]>([]);
- ngOnInit(): void {
+  ngOnInit(): void {
   this.displayProducts()
  }
 
