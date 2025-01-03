@@ -1,9 +1,11 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common'; //For ngFor and ngIf
 import { APIResponse, Customer, LoginCustomer } from './model/Product';
 import {FormsModule} from '@angular/forms';
 import { EcommerceServiceService } from './service/ecommerce-service.service';
+import { Routes } from '@angular/router';
+import { OrderComponent } from './views/order/order.component';
 
 
 @Component({
@@ -17,9 +19,28 @@ export class AppComponent {
   title = 'shophere';
   showRegister:boolean=false;
   showLogin:boolean=false;
+  isloggedIn:boolean=false;
   registerCustomer:Customer=new Customer();
   loginCustomer:LoginCustomer=new LoginCustomer();
+  loggedUser:Customer=new Customer();
   ecomService=inject(EcommerceServiceService)
+  
+
+  constructor(private router: Router)
+  {
+    this.isloggedIn=false;
+  }
+  ngOnInit(): void {
+      const isUser=localStorage.getItem('shophere');
+      
+      console.log(isUser);
+      if(isUser!=null)
+       {
+           this.isloggedIn=true;
+        const pasrseObj=JSON.parse(isUser);
+        this.loggedUser=pasrseObj;
+       }
+  }
   openSignUp(){
     if(this.showLogin==true)
       this.showLogin=false;
@@ -62,8 +83,10 @@ export class AppComponent {
     if(res.result==true)
     {
       //storing the data
-      localStorage.setItem('shophere',JSON.stringify(res.data))
+      this.loggedUser=res.data;
+      localStorage.setItem('shophere',JSON.stringify(res.data));
       this.showLogin=false;
+      window.location.href = window.location.href
     }
     else
     {
@@ -71,5 +94,11 @@ export class AppComponent {
     }
     this.showLogin=false;
   })
+ }
+ logout()
+ {
+  this.isloggedIn=false;
+  localStorage.removeItem('shophere');
+  
  }
 }

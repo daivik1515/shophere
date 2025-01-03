@@ -9,12 +9,19 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item" id="signup">
+        <li *ngIf="!isloggedIn" class="nav-item" id="signup">
           <button class="btn btn-primary" (click)="openSignUp()" >Sign up</button>
         </li>
-        <li class="nav-item" id="login">
+        <li *ngIf="!isloggedIn" class="nav-item" id="login">
           <button  class="btn btn-primary" (click)="openLogIn()">Login</button>
         </li>
+        <li  *ngIf="isloggedIn" class="nav-item" id="login">
+       <div style="color: aliceblue;">Hey! {{loggedUser.name | uppercase}}</div>
+        </li>
+        <li *ngIf="isloggedIn" class="nav-item" id="signup">
+          <button class="btn btn-primary" (click)="logout()" >Log Out</button>
+        </li>
+        
       </ul>
       <!-- <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -33,7 +40,7 @@
     <div class="popupHeading">
       <div id="username">
       <span>Enter Name</span>
-      <input type="text" name="" id="usernameForm" [(ngModel)]="registerCustomer.Name" class="formField">
+      <input type="text" name="" id="usernameForm" [(ngModel)]="registerCustomer.name" class="formField">
       </div>
       <div id="registerUsername">
         <span>Enter phone</span>
@@ -41,7 +48,7 @@
         </div>
       <div id="password">
         <span>Enter Password</span>
-        <input type="password" name=""  [(ngModel)]="registerCustomer.Password" class="formField">
+        <input type="password" name=""  [(ngModel)]="registerCustomer.password" class="formField">
       </div>
       <div id="password">
         <span>Confirm Password</span>
@@ -61,11 +68,11 @@
   <div class="popupHeading">
     <div id="username">
     <span>Enter Username</span>
-    <input [(ngModel)]="loginCustomer.UserName" type="text" name="" id="usernameForm" class="formField">
+    <input [(ngModel)]="loginCustomer.name" type="text" name="" id="usernameForm" class="formField">
     </div>
     <div id="password">
       <span>Enter Password</span>
-      <input style="margin-left: 15px;" [(ngModel)]="loginCustomer.Password" type="password" name=""  class="formField">
+      <input style="margin-left: 15px;" [(ngModel)]="loginCustomer.password" type="password" name=""  class="formField">
     </div>
     <div class="buttonsFlexLogin">
       <button type="button" class="btn btn-primary loginButton" (click)="onLogin()">Login</button>

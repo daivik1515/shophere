@@ -9,7 +9,7 @@ import { APIResponse, Customer, LoginCustomer } from '../model/Product';
 export class EcommerceServiceService {
 
   constructor(private http:HttpClient) { }
-  Url:string= "https://freeapi.miniprojectideas.com/api/amazon";
+  Url:string= "http://localhost:3001/";
 
   //API CALL
   getProducts():Observable<APIResponse>
@@ -19,12 +19,12 @@ export class EcommerceServiceService {
   registerNewCustomer(obj:Customer):Observable<APIResponse>
   {
     // const Url=`${this.Url}/RegisterCutomer`;
-    const Url="/api/amazon/RegisterCustomer";
+    const Url="http://localhost:3001/register";
     return this.http.post<APIResponse>(Url,obj);
   }
   loginCustomer(obj:LoginCustomer):Observable<APIResponse>
   {
-    const Url="/api/amazon/Login";
+    const Url="http://localhost:3001/login";
     return this.http.post<APIResponse>(Url,obj);
   }
 }
