@@ -9,19 +9,22 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li *ngIf="!isloggedIn" class="nav-item" id="signup">
+        @if(!isloggedIn){
+        <li class="nav-item" id="signup">
           <button class="btn btn-primary" (click)="openSignUp()" >Sign up</button>
         </li>
-        <li *ngIf="!isloggedIn" class="nav-item" id="login">
+        <li class="nav-item" id="login">
           <button  class="btn btn-primary" (click)="openLogIn()">Login</button>
         </li>
-        <li  *ngIf="isloggedIn" class="nav-item" id="login">
+      }@else
+      {
+        <li  class="nav-item" id="login">
        <div style="color: aliceblue;">Hey! {{loggedUser.name | uppercase}}</div>
         </li>
-        <li *ngIf="isloggedIn" class="nav-item" id="signup">
+        <li class="nav-item" id="signup">
           <button class="btn btn-primary" (click)="logout()" >Log Out</button>
         </li>
-        
+      }
       </ul>
       <!-- <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
