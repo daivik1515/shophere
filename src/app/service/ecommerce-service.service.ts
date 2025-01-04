@@ -19,12 +19,12 @@ export class EcommerceServiceService {
   registerNewCustomer(obj:Customer):Observable<APIResponse>
   {
     // const Url=`${this.Url}/RegisterCutomer`;
-    const Url="http://localhost:3001/register";
+    const Url="http://localhost:8082/api/auth/register";
     return this.http.post<APIResponse>(Url,obj);
   }
   loginCustomer(obj:LoginCustomer):Observable<APIResponse>
   {
-    const Url="http://localhost:3001/login";
+    const Url="http://localhost:8082/api/auth/login";
     return this.http.post<APIResponse>(Url,obj);
   }
 }
