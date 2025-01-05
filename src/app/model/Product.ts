@@ -22,15 +22,15 @@ export interface ProductData {
   
 export class Customer
   {
-    CustId:number
+    custId:number
     name:string
-    MobileNo:string
+    mobileNo:string
     password:string
     constructor()
     {
-        this.CustId=0;
+        this.custId=0;
         this.name="";
-        this.MobileNo="";
+        this.mobileNo="";
         this.password="";
     }
   }
