@@ -31,15 +31,16 @@ export class AppComponent {
     this.isloggedIn=false;
   }
   ngOnInit(): void {
-      const isUser=localStorage.getItem('shophere');
-      
+    // Check if running in a browser environment before using localStorage
+    if (typeof window !== 'undefined') {
+      const isUser = localStorage.getItem('shophere');
       console.log(isUser);
-      if(isUser!=null)
-       {
-           this.isloggedIn=true;
-        const pasrseObj=JSON.parse(isUser);
-        this.loggedUser=pasrseObj;
-       }
+      if (isUser != null) {
+        this.isloggedIn = true;
+        const parseObj = JSON.parse(isUser);
+        this.loggedUser = parseObj;
+      }
+    }
   }
   openSignUp(){
     if(this.showLogin==true)

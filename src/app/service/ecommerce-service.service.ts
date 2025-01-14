@@ -14,17 +14,17 @@ export class EcommerceServiceService {
   //API CALL
   getProducts():Observable<APIResponse>
   {
-    return this.http.get<APIResponse>("https://freeapi.miniprojectideas.com/api/amazon/GetAllProducts")
+    return this.http.get<APIResponse>("http://localhost:3001/appProducts")
   }
   registerNewCustomer(obj:Customer):Observable<APIResponse>
   {
     // const Url=`${this.Url}/RegisterCutomer`;
-    const Url="http://localhost:8082/api/auth/register";
+    const Url="http://localhost:3001/register";
     return this.http.post<APIResponse>(Url,obj);
   }
   loginCustomer(obj:LoginCustomer):Observable<APIResponse>
   {
-    const Url="http://localhost:8082/api/auth/login";
+    const Url="http://localhost:3001/login";
     return this.http.post<APIResponse>(Url,obj);
   }
 }
