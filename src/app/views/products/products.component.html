@@ -12,10 +12,17 @@
                         <h5 class="card-title">{{item.productName}}</h5>
                         <h5 class="card-title">${{item.productPrice}}</h5>
                         <p class="ctext">{{item.productDescription}}</p>
-                        <a href="#" class="btn btn-primary">Add To Cart</a>
+                        <button class="btn btn-primary" (click)="addToCartButton(item)">Add To Cart</button>
                         </div>
                         </div>
                 </div>
     </div>
+    </div>
+    <div class="login" *ngIf="showDialog" id="overlay"></div>
+    <div class="loginerror" *ngIf="showDialog">
+        <div class="modelbody">
+            <div class="messagebody">Please login to continue</div>
+            <div class="closebutton"><button class="btn btn-danger loginCancel" (click)="closeDialog()">Close</button></div>
+        </div>
     </div>
     </div>

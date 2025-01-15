@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse, Customer, LoginCustomer } from '../model/Product';
+import { APIResponse, cart, Customer, LoginCustomer } from '../model/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,11 @@ export class EcommerceServiceService {
   loginCustomer(obj:LoginCustomer):Observable<APIResponse>
   {
     const Url="http://localhost:3001/login";
+    return this.http.post<APIResponse>(Url,obj);
+  }
+  addToCart(obj:cart):Observable<APIResponse>
+  {
+    const Url="http://localhost:3001/addtocart"
     return this.http.post<APIResponse>(Url,obj);
   }
 }

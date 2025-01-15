@@ -68,3 +68,41 @@
     font-size: 150%;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+.loginerror
+{
+    width: 500px;
+    height: 145px;
+    position: sticky;
+    left: 33%;
+    bottom: 40%;
+    background: white; 
+    z-index: 1001;
+    border: 2px solid rgb(85, 85, 101);
+    border-radius: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-shadow: 5px 5px 5px 5px black;
+}
+#overlay 
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000; 
+}
+.modelbody
+{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10%;
+}
+.messagebody
+{
+
+}
+.closebutton
+{
+
+}

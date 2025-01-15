@@ -1,8 +1,9 @@
 import { Component,inject,OnInit, signal } from '@angular/core';
 import { EcommerceServiceService } from '../../service/ecommerce-service.service';
-import { APIResponse, ProductData } from '../../model/Product';
+import { APIResponse, cart, Customer, ProductData } from '../../model/Product';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { LoginServiceService } from '../../service/login-service.service';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +14,23 @@ import { NgModule } from '@angular/core';
 })
 export class ProductsComponent implements OnInit{
   ecomService=inject(EcommerceServiceService);
+  loginData=inject(LoginServiceService)
   data: ProductData[] = [];
+  cartData:cart = new cart();
+  loggedUser:Customer=new Customer();;
+  showDialog:boolean=false;
+  constructor()
+  {
+    if (typeof window !== 'undefined') {
+      const isUser = localStorage.getItem('shophere');
+      console.log(isUser);
+      if (isUser != null) {
+        const parseObj = JSON.parse(isUser);
+        this.loggedUser = parseObj;
+      }
+    }
+  }
+
   ngOnInit(): void {
   this.displayProducts()
  }
@@ -23,5 +40,33 @@ export class ProductsComponent implements OnInit{
     this.ecomService.getProducts().subscribe((res:APIResponse)=>{
       this.data=res.data;
     })
+  }
+  addToCartButton(product:ProductData)
+  {
+    if(this.loginData.loggedInService.value)
+    {
+    this.cartData.productId=product._id;
+    this.cartData.custId=this.loggedUser._id;
+    //console.log(this.loggedUser._id);
+    this.ecomService.addToCart(this.cartData).subscribe((res:APIResponse)=>{
+      if(res.result)
+      {
+        alert("Product Added to cart");
+      }
+      else
+      {
+        alert("Error occured");
+      }
+    })
+    }
+    else
+    {
+      this.showDialog=true;
+      console.log("Please login to continue");
+    }
+  }
+  closeDialog()
+  {
+    this.showDialog=false;
   }
 }

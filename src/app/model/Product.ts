@@ -7,7 +7,7 @@ export interface APIResponse
 
   
 export interface ProductData {
-    productId: number
+    _id: string
     productSku: string
     productName: string
     productPrice: number
@@ -22,13 +22,13 @@ export interface ProductData {
   
 export class Customer
   {
-    custId:number
+    _id:string
     name:string
     mobileNo:string
     password:string
     constructor()
     {
-        this.custId=0;
+        this._id='';
         this.name="";
         this.mobileNo="";
         this.password="";
@@ -44,5 +44,20 @@ export class Customer
     {
         this.name="";
         this.password="";
+    }
+  }
+
+  export class cart 
+  {
+    cartId:number
+    custId:string
+    productId:string
+    quantity:number
+    constructor()
+    {
+      this.cartId=0;
+      this.custId='';
+      this.productId='';
+      this.quantity=1;
     }
   }

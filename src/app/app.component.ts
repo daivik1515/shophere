@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import { EcommerceServiceService } from './service/ecommerce-service.service';
 import { Routes } from '@angular/router';
 import { OrderComponent } from './views/order/order.component';
+import { LoginServiceService } from './service/login-service.service';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class AppComponent {
   registerCustomer:Customer=new Customer();
   loginCustomer:LoginCustomer=new LoginCustomer();
   loggedUser:Customer=new Customer();
-  ecomService=inject(EcommerceServiceService)
+  ecomService=inject(EcommerceServiceService);
+  loginData=inject(LoginServiceService);
   
 
   constructor(private router: Router)
@@ -39,6 +41,7 @@ export class AppComponent {
         this.isloggedIn = true;
         const parseObj = JSON.parse(isUser);
         this.loggedUser = parseObj;
+        this.loginData.changeLoginStatusToLogin();
       }
     }
   }
@@ -88,6 +91,7 @@ export class AppComponent {
       localStorage.setItem('shophere',JSON.stringify(res.data));
       this.showLogin=false;
       window.location.href = window.location.href
+      this.loginData.changeLoginStatusToLogin();
     }
     else
     {
@@ -100,6 +104,7 @@ export class AppComponent {
  {
   this.isloggedIn=false;
   localStorage.removeItem('shophere');
-  
+  this.loginData.changeLoginStatusToLogout();
+  this.loggedUser=new Customer();
  }
 }
