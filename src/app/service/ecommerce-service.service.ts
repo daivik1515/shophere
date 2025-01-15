@@ -32,4 +32,15 @@ export class EcommerceServiceService {
     const Url="http://localhost:3001/addtocart"
     return this.http.post<APIResponse>(Url,obj);
   }
+  
+  getCartProducts(id:string):Observable<APIResponse>
+  {
+    const Url=`http://localhost:3001/getcustomercart/${id}`;
+    return this.http.get<APIResponse>(Url);
+  }
+  deleteCartItems(id:string):Observable<APIResponse>
+  {
+    const Url=`http://localhost:3001/deletecartitem/${id}`
+    return this.http.delete<APIResponse>(Url);
+  }
 }

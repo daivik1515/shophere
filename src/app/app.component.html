@@ -25,7 +25,26 @@
           <button class="btn btn-primary" (click)="logout()" >Log Out</button>
         </li>
       }
+      <li class="nav-item">
+        <div>
+          <button class="nav-link active" aria-current="page" (click)="openCart()">Cart</button>
+          <div *ngIf="showCart" class="cartDialog">
+          <div style="display: flex; justify-content: center;">Cart Items</div>
+          <div *ngFor="let item of cartData" class="cartProducts">
+            <div class="cartItems" style="font-size: smaller;">
+              <div style="max-width: 20px; overflow:visible;">{{item.productId.productName}}</div>
+              <div style="margin-left: 40px;"><span>Quantity:</span>{{item.quantity}}</div>
+              <div>${{item.productId.productPrice}}</div>
+              <div><button class="btn btn-danger" (click)="deleteCartItem(item._id)">Delete</button></div>
+            </div>
+          </div>
+          <div class="closeCartButton"><button class="btn btn-danger" (click)="closeCartButton()" >Close Cart</button></div>
+          </div>
+        </div>
+       
+      </li>
       </ul>
+      
       <!-- <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>

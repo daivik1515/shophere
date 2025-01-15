@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common'; //For ngFor and ngIf
-import { APIResponse, Customer, LoginCustomer } from './model/Product';
+import { APIResponse, Customer, LoginCustomer, ProductData } from './model/Product';
 import {FormsModule} from '@angular/forms';
 import { EcommerceServiceService } from './service/ecommerce-service.service';
 import { Routes } from '@angular/router';
@@ -26,6 +26,8 @@ export class AppComponent {
   loggedUser:Customer=new Customer();
   ecomService=inject(EcommerceServiceService);
   loginData=inject(LoginServiceService);
+  showCart:boolean=false;
+  cartData: any = [];
   
 
   constructor(private router: Router)
@@ -41,6 +43,8 @@ export class AppComponent {
         this.isloggedIn = true;
         const parseObj = JSON.parse(isUser);
         this.loggedUser = parseObj;
+        console.log(this.loggedUser);
+        
         this.loginData.changeLoginStatusToLogin();
       }
     }
@@ -106,5 +110,37 @@ export class AppComponent {
   localStorage.removeItem('shophere');
   this.loginData.changeLoginStatusToLogout();
   this.loggedUser=new Customer();
+ }
+
+ openCart()
+ {
+  this.showCart=!this.showCart;
+  if(this.showCart)
+  {
+  const customerId = localStorage.getItem('shophere');
+  this.getCartItems();
+  }
+
+ }
+ getCartItems()
+ {
+  this.ecomService.getCartProducts(this.loggedUser._id).subscribe((res:APIResponse)=>{
+    this.cartData=res.data;
+    //console.log(res.data[0].productId);
+    //this.cartData=res.data.productId;
+  })
+ }
+ closeCartButton()
+ {
+  this.showCart=false;
+ }
+
+
+ deleteCartItem(id:string)
+ {
+   this.ecomService.deleteCartItems(id).subscribe((res)=>{
+    this.showCart=false;
+    alert(res.message);
+   })
  }
 }
