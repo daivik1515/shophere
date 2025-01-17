@@ -1,1 +1,50 @@
-<p>order works!</p>
+<div class="main-order">
+    <div class="place-order">
+        <div class="place-order-body">
+            <div><h1>Place Order</h1></div>
+            <div class="form-order">
+                <form>
+                <div class="label-field-heading"><h3>Contact Information</h3></div>
+                <div class="input-label">Enter the Email:</div>
+                <div><input type="text"></div>
+                <hr style="width: 70%; justify-self: center;margin-top: 30px;">
+                <div class="label-field-heading"><h3>Shipping Address</h3></div>
+                <div class="two-flex-rows">
+                    <div style="width: 49%;"><span class="span-labels">First Name</span><input type="text" name="" id=""></div>
+                    <div style="width: 45%;"><span class="span-labels">Last Name</span><input type="text" name="" id=""></div>
+                </div>
+                <div>
+                    <div><span class="span-labels">Street Address</span><input type="text" name="" id=""></div>
+                    <div><span class="span-labels">Apt/Suite/Floor (Optional)</span><input type="text" name="" id=""></div>
+                </div>
+                <div class="address-fields">
+                    <div style="flex: 33%;"><span class="span-labels">City</span><input type="text" name="" id=""></div>
+                    <div style="flex: 33%;"><span class="span-labels">State</span><input type="text" name="" id=""></div>
+                    <div style="flex: 33%;"><span class="span-labels">Zip Code</span><input type="text" name="" id=""></div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="order-cart-items">
+        <div class="order-cart-items-body">
+            <div><h1>Cart Items</h1></div>
+            <div *ngFor="let item of cartData" class="cartData">
+                <div  class="flex-25 img-pading"><img src="{{item.productId.productImageUrl}}" class="image-product"></div>
+                <div class="flex-25">{{item.productId.productName}}</div>
+                <div class="flex-25">Quantity : {{item.quantity}}</div>
+                <div class="flex-25">Price : ${{item.productId.productPrice}}</div>
+                <div class="flex-25">Total : ${{item.productId.productPrice * item.quantity}}</div>
+                <div><button class="btn btn-danger btn-width" (click)="deleteCartItem(item._id)">Delete</button></div>
+            </div>
+        </div>
+        <hr>
+        <div class="price-row">
+        <div><h3>Total :</h3></div>
+        <div><h3>{{totalAmount}}</h3></div>
+        </div>   
+    </div>
+</div>
+
+
+            

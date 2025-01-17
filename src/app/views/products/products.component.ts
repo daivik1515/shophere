@@ -51,7 +51,8 @@ export class ProductsComponent implements OnInit{
     this.ecomService.addToCart(this.cartData).subscribe((res:APIResponse)=>{
       if(res.result)
       {
-        alert("Product Added to cart");
+        this.loginData.changecartItemInsertTriggerTrue();
+        this.loginData.cartItemInsertTrigger.next(true);
       }
       else
       {

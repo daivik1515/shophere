@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common'; //For ngFor and ngIf
 import { APIResponse, Customer, LoginCustomer, ProductData } from './model/Product';
@@ -7,16 +7,18 @@ import { EcommerceServiceService } from './service/ecommerce-service.service';
 import { Routes } from '@angular/router';
 import { OrderComponent } from './views/order/order.component';
 import { LoginServiceService } from './service/login-service.service';
+import { app } from '../../server';
+
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CommonModule,FormsModule],
+  imports: [RouterOutlet,CommonModule,FormsModule,OrderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent{
   title = 'shophere';
   showRegister:boolean=false;
   showLogin:boolean=false;
@@ -34,6 +36,8 @@ export class AppComponent {
   {
     this.isloggedIn=false;
   }
+  
+
   ngOnInit(): void {
     // Check if running in a browser environment before using localStorage
     if (typeof window !== 'undefined') {
@@ -43,11 +47,17 @@ export class AppComponent {
         this.isloggedIn = true;
         const parseObj = JSON.parse(isUser);
         this.loggedUser = parseObj;
-        console.log(this.loggedUser);
-        
+        this.loginData.setLoggedUserId(this.loggedUser._id);
         this.loginData.changeLoginStatusToLogin();
       }
     }
+    this.loginData.cartItemInsertTrigger.subscribe((res:boolean)=>{
+      if(res)
+      {
+        this.getCartItems();
+        this.showCart=true;
+      }
+    })
   }
   openSignUp(){
     if(this.showLogin==true)
@@ -110,24 +120,23 @@ export class AppComponent {
   localStorage.removeItem('shophere');
   this.loginData.changeLoginStatusToLogout();
   this.loggedUser=new Customer();
+  this.cartData=[];
  }
 
  openCart()
  {
-  this.showCart=!this.showCart;
+  this.showCart=true;
   if(this.showCart)
   {
   const customerId = localStorage.getItem('shophere');
   this.getCartItems();
   }
-
  }
+
  getCartItems()
  {
   this.ecomService.getCartProducts(this.loggedUser._id).subscribe((res:APIResponse)=>{
     this.cartData=res.data;
-    //console.log(res.data[0].productId);
-    //this.cartData=res.data.productId;
   })
  }
  closeCartButton()
@@ -139,8 +148,12 @@ export class AppComponent {
  deleteCartItem(id:string)
  {
    this.ecomService.deleteCartItems(id).subscribe((res)=>{
-    this.showCart=false;
-    alert(res.message);
+   this.getCartItems();
    })
+ }
+
+ onCheckout()
+ {
+   this.router.navigate(['order']);
  }
 }

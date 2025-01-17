@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed" data-bs-theme="dark">
+<nav  class="navbar navbar-expand-lg fixed-top bg-body-tertiary fixed" data-bs-theme="dark">
   <div class="container-fluid" style="margin-bottom: 10px;margin-top: 10px;">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -43,6 +43,9 @@
         </div>
        
       </li>
+      <li class="nav-item">
+        <button type="button" class="btn btn-primary" (click)="onCheckout()">Checkout</button>
+      </li>
       </ul>
       
       <!-- <form class="d-flex" role="search">
@@ -52,7 +55,6 @@
     </div>
   </div>
 </nav>
-
 <router-outlet></router-outlet>
 <div class="login" *ngIf="showRegister" id="overlay"></div>
 <div class="register" *ngIf="showRegister">

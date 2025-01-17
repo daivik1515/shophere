@@ -107,6 +107,8 @@
     background: white;
     border-radius: 10px;
     padding-bottom: 2%;
+    max-height: 30vh;
+    overflow: scroll;
   }
   .cartItems
   {
