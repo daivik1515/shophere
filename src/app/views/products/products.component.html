@@ -1,10 +1,15 @@
 <div class="productpage">
     <div class="searchBar">
-        <input type="text" name="" id="search" placeholder="Search for items...">
+    <form class="searchBar">
+    <input type="text" name="searchTerm" [(ngModel)]="searchTerm" id="search" placeholder="Search for items...">
+    </form>
+        
     </div>
     <div class="container">
         <div class="display-flex">
-                <div class="product-cards" *ngFor="let item of data">
+
+                @for (item of data | filterProducts: searchTerm(); track item._id){
+                    <div class="product-cards">
                         <div class="card" style="width: 18rem;">
                         <div class="productCategory">{{item.categoryName}}</div>
                         <img id="image-height" [src]=item.productImageUrl class="card-img-top" alt="Not present">
@@ -15,7 +20,9 @@
                         <button class="btn btn-primary" (click)="addToCartButton(item)">Add To Cart</button>
                         </div>
                         </div>
-                </div>
+                    </div>
+                }
+             
     </div>
     </div>
     <div class="login" *ngIf="showDialog" id="overlay"></div>

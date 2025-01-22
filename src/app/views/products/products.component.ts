@@ -4,15 +4,20 @@ import { APIResponse, cart, Customer, ProductData } from '../../model/Product';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LoginServiceService } from '../../service/login-service.service';
+import { FormsModule } from '@angular/forms';
+import { FilterProductsPipe } from '../../pipes/filter-products.pipe';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule,FilterProductsPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit{
+  
+  searchTerm = signal('');
+  
   ecomService=inject(EcommerceServiceService);
   loginData=inject(LoginServiceService)
   data: ProductData[] = [];
