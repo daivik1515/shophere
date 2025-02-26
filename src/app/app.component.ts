@@ -121,6 +121,7 @@ export class AppComponent{
   this.loginData.changeLoginStatusToLogout();
   this.loggedUser=new Customer();
   this.cartData=[];
+  this.router.navigate(['home']);
  }
 
  openCart()

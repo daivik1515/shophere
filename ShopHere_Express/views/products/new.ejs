@@ -1,0 +1,56 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Product</title>
+</head>
+<body>
+    <h1>Add a Product</h1>
+    <form action="/products" method="POST" enctype="multipart/form-data">
+        Name
+        <input type="text" name="name" placeholder="Products Name">
+        Price
+        <input type="number" name="price" placeholder="Enter the price">
+        Category
+        <select name="category" id="">
+            <option value="fruit">fruit</option>
+            <option value="vegetable">vegetable</option>
+            <option value="dairy">dairy</option>
+        </select>
+        <input type="file" id="image" name="image" accept="image/*" required />
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Product</title>
+</head>
+<body>
+    <h1>Add a Product</h1>
+    <form action="/products" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Product Name" required>
+        
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" placeholder="Enter the price" required>
+        
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+            <option value="fruit">Fruit</option>
+            <option value="vegetable">Vegetable</option>
+            <option value="dairy">Dairy</option>
+        </select>
+        
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

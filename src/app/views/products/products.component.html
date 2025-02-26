@@ -6,12 +6,12 @@
         <div class="display-flex">
                 <div class="product-cards" *ngFor="let item of data">
                         <div class="card" style="width: 18rem;">
-                        <div class="productCategory">{{item.categoryName}}</div>
                         <img id="image-height" [src]=item.productImageUrl class="card-img-top" alt="Not present">
                         <div class="card-body">
                         <h5 class="card-title">{{item.productName}}</h5>
                         <h5 class="card-title">${{item.productPrice}}</h5>
                         <p class="ctext">{{item.productDescription}}</p>
+                        <p>Category : {{item.categoryName}}</p>
                         <button class="btn btn-primary" (click)="addToCartButton(item)">Add To Cart</button>
                         </div>
                         </div>
