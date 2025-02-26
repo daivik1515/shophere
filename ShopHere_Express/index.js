@@ -1,150 +1,3 @@
-// const express=require('express');
-// const app=express();
-// const path=require('path');
-// const mongoose=require('mongoose');
-// const Product=require('./models/products');
-// var methodOverride = require('method-override')
-
-// const multer=require('multer');
-// const { GridFsStorage } = require('mongodb');
-// const Grid = require('gridfs-stream');
-
-
-
-
-// mongoose.connect('mongodb://127.0.0.1:27017/farmStand')
-// .then(()=>{
-//     console.log("Mongo Connection Open!!");
-// })
-// .catch(err=>{
-//     console.log("Oh No error!! Mongo Connection Error");
-// })
-// const bucket = new mongodb.GridFSBucket(farmStand);
-
-
-// app.set('views',path.join(__dirname,'views'));
-// app.set('view engine','ejs');
-// app.use(express.urlencoded({extended:true}));
-// app.use(methodOverride('_method'))
-
-
-
-
-
-// //Adding a route
-// app.get('/products', async (req,res)=>{
-//     const products=await Product.find({}) 
-//     res.render('products/index',{products});
-// })
-
-// //Add it above the route with params
-// app.get('/products/new',async (req,res)=>{
-//     res.render('products/new')
-// })
-
-
-// //Post request
-// // app.post('/products',async (req,res)=>{
-// //     const product=new Product(req.body);
-// //     await product.save();
-// //     res.redirect(`products/${product.id}`);
-// // })
-
-
-
-
-// // POST: Add a new product with an image
-// app.post('/products', upload.single('image'), (req, res) => {
-//   const { name, price, category } = req.body;
-
-//   if (!req.file) {
-//     return res.status(400).send('Image is required!');
-//   }
-
-//   // Save image to GridFSBucket
-//   const uploadStream = gridFSBucket.openUploadStream(req.file.originalname, {
-//     contentType: req.file.mimetype,
-//   });
-//   uploadStream.end(req.file.buffer);
-
-//   uploadStream.on('finish', async (file) => {
-//     try {
-//       // Create a new product
-//       const product = new Product({
-//         name,
-//         price,
-//         category,
-//         imageId: file._id, // Store the image file ID
-//       });
-
-//       await product.save();
-//       res.status(201).send(product);
-//     } catch (err) {
-//       console.error(err);
-//       res.status(500).send('Error saving product');
-//     }
-//   });
-
-//   uploadStream.on('error', (err) => {
-//     console.error('Upload Error:', err);
-//     res.status(500).send('Upload Failed');
-//   });
-// });
-
-
-
-
-
-
-
-
-
-
-
-// app.get('/image/:id', async (req, res) => {
-//     const { id } = req.params;
-
-//     // Fetch the image from GridFS
-//     const file = await gfs.files.findOne({ _id: new mongoose.Types.ObjectId(id) });
-
-//     if (!file) {
-//         return res.status(404).send('Image not found');
-//     }
-//     const readStream = gfs.createReadStream(file.filename);
-//     readStream.pipe(res); // Send image to client
-// });
-
-// //Find product by ID's
-// app.get('/products/:id',async (req,res)=>{
-//    const {id}=req.params;
-//    const product=await Product.findById(id);
-//    res.render('products/show',{product});   
-// })
-
-// //Updating the route
-// app.get('/products/:id/edit',async (req,res)=>{
-//     const {id}=req.params;
-//     const product=await Product.findById(id);
-//     res.render('products/edit',{product});
-// })
-
-// //Updating
-// app.put('/products/:id',async (req,res)=>{
-//     const {id}=req.params;
-//     const product= await Product.findByIdAndUpdate(id,req.body,{runValidators:true,new:true});
-//     res.redirect(`/products/${product.id}`);
-// })
-
-// //Deleting
-// app.delete('/products/:id',async (req,res)=>{
-//     const {id}=req.params;
-//     const product=await Product.findByIdAndDelete(id);
-//     res.redirect('/products');
-// })
-
-// app.listen(3001,()=>{
-//     console.log("App is listening on port 3001");  
-// })
 
 const express = require('express');
 const app = express();
@@ -173,7 +26,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // MongoDB Connection
-const mongoURI = 'mongodb://127.0.0.1:27017/farmStand';
+const mongoURI = 'mongodb://127.0.0.1:27017/ShopHere';
 mongoose.connect(mongoURI)
     .then(() => console.log('Mongo Connection Open!!'))
     .catch(err => console.log('Mongo Connection Error:', err));
@@ -194,148 +47,112 @@ conn.once('open', () => {
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Routes
-// GET: All products
-app.get('/products', async (req, res) => {
-    const products = await Product.find({});
-    res.render('products/index', { products });
-});
+const appProductRouter = require('./routes/appProducts')
+app.use('/appProducts',appProductRouter)
 
-app.get('/appProducts',async (req,res)=>{
-    let products=[];
-    products=await appProducts.find({});
-    return res.status(200).json({message:'List of products',data:products,result:true})
-})
+const imageRouter = require('./routes/image')
+app.use('/image',imageRouter)
 
-// GET: New Product Form
-app.get('/products/new', (req, res) => {
-    res.render('products/new');    
-});
+// // Routes
+// // GET: All products
+// app.get('/products', async (req, res) => {
+//     const products = await Product.find({});
+//     res.render('products/index', { products });
+// });
 
-// POST: Add New Product with Image
-app.post('/products', upload.single('image'), async (req, res) => {
-    const { name, price, category } = req.body;
+// // GET: New Product Form
+// app.get('/products/new', (req, res) => {
+//     res.render('products/new');    
+// });
 
-    // Check if file is uploaded
-    if (!req.file) {
-        return res.status(400).send('Image is required!');
-    }
+// // POST: Add New Product with Image
+// app.post('/products', upload.single('image'), async (req, res) => {
+//     const { name, price, category } = req.body;
 
-    try {
-        // Create an upload stream
-        const uploadStream = gridFSBucket.openUploadStream(req.file.originalname, {
-            contentType: req.file.mimetype,
-        });
+//     // Check if file is uploaded
+//     if (!req.file) {
+//         return res.status(400).send('Image is required!');
+//     }
 
-        // Write file buffer to GridFS
-        uploadStream.end(req.file.buffer);
+//     try {
+//         // Create an upload stream
+//         const uploadStream = gridFSBucket.openUploadStream(req.file.originalname, {
+//             contentType: req.file.mimetype,
+//         });
 
-        uploadStream.on('finish', async function () {
-            // Fetch the uploaded file details
-            const files = await gfs.files.find().sort({ uploadDate: -1 }).limit(1).toArray();
+//         // Write file buffer to GridFS
+//         uploadStream.end(req.file.buffer);
 
-            if (!files || files.length === 0) {
-                return res.status(500).send('File not saved in GridFS!');
-            }
+//         uploadStream.on('finish', async function () {
+//             // Fetch the uploaded file details
+//             const files = await gfs.files.find().sort({ uploadDate: -1 }).limit(1).toArray();
 
-            const file = files[0]; // Get the latest uploaded file
-            console.log('Uploaded File ID:', file._id); // Debug log for ID
+//             if (!files || files.length === 0) {
+//                 return res.status(500).send('File not saved in GridFS!');
+//             }
 
-            // Create and save product with image ID
-            const product = new Product({
-                name,
-                price,
-                category,
-                imageId: file._id // Attach image ID
-            });
+//             const file = files[0]; // Get the latest uploaded file
+//             console.log('Uploaded File ID:', file._id); // Debug log for ID
 
-            await product.save();
-            res.redirect(`/products/${product.id}`);
-        });
+//             // Create and save product with image ID
+//             const product = new Product({
+//                 name,
+//                 price,
+//                 category,
+//                 imageId: file._id // Attach image ID
+//             });
 
-        uploadStream.on('error', (err) => {
-            console.error('Upload Stream Error:', err);
-            res.status(500).send('Upload Failed');
-        });
-    } catch (err) {
-        console.error('Error saving product:', err);
-        res.status(500).send('Error saving product');
-    }
-});
+//             await product.save();
+//             res.redirect(`/products/${product.id}`);
+//         });
+
+//         uploadStream.on('error', (err) => {
+//             console.error('Upload Stream Error:', err);
+//             res.status(500).send('Upload Failed');
+//         });
+//     } catch (err) {
+//         console.error('Error saving product:', err);
+//         res.status(500).send('Error saving product');
+//     }
+// });
 
 
-// GET: Display Image by ID
-app.get('/image/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        const file = await gfs.files.findOne({ _id: new mongoose.Types.ObjectId(id) });
-        if (!file) return res.status(404).send('Image not found');
 
-        const readStream = gridFSBucket.openDownloadStream(file._id);
-        res.set('Content-Type', file.contentType);
-        readStream.pipe(res);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error fetching image');
-    }
-});
+// // GET: Show Product by ID
+// app.get('/products/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const product = await Product.findById(id);
+//     console.log(product)
+//     console.log(req.params)
+//     res.render('products/show', { product });
+// });
 
-// GET: Show Product by ID
-app.get('/products/:id', async (req, res) => {
-    const { id } = req.params;
-    const product = await Product.findById(id);
-    res.render('products/show', { product });
-});
+// // GET: Edit Product Form
+// app.get('/products/:id/edit', async (req, res) => {
+//     const { id } = req.params;
+//     const product = await Product.findById(id);
+//     res.render('products/edit', { product });
+// });
 
-// GET: Edit Product Form
-app.get('/products/:id/edit', async (req, res) => {
-    const { id } = req.params;
-    const product = await Product.findById(id);
-    res.render('products/edit', { product });
-});
+// // PUT: Update Product
+// app.put('/products/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const product = await Product.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
+//     res.redirect(`/products/${product.id}`);
+// });
 
-// PUT: Update Product
-app.put('/products/:id', async (req, res) => {
-    const { id } = req.params;
-    const product = await Product.findByIdAndUpdate(id, req.body, { runValidators: true, new: true });
-    res.redirect(`/products/${product.id}`);
-});
+// // DELETE: Remove Product and Image
+// app.delete('/products/:id', async (req, res) => {
+//     const { id } = req.params;
+//     const product = await Product.findByIdAndDelete(id);
 
-// DELETE: Remove Product and Image
-app.delete('/products/:id', async (req, res) => {
-    const { id } = req.params;
-    const product = await Product.findByIdAndDelete(id);
+//     if (product && product.imageId) {
+//         await gridFSBucket.delete(new mongoose.Types.ObjectId(product.imageId));
+//     }
+//     res.redirect('/products');
+// });
 
-    if (product && product.imageId) {
-        await gridFSBucket.delete(new mongoose.Types.ObjectId(product.imageId));
-    }
-    res.redirect('/products');
-});
 
-app.get('/image/:filename', (req, res) => {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-        console.log(file);
-        console.log(file.ObjectId);
-        
-        
-      if (!file || file.length === 0) {
-        return res.status(404).json({ err: 'No file exists' });
-      }
-  
-      // Check if the file is an image
-      if (
-        file.contentType === 'image/jpeg' ||
-        file.contentType === 'image/png' || 'image/jpg'
-      ) {
-        // Read output to browser
-        const readstream = gfs.createReadStream(file.filename);
-        readstream.pipe(res);
-      } else {
-        res.status(404).json({ err: 'Not an image' });
-      }
-    });
-  });
-  
 app.get('/getcustomercart/:id',async (req,res)=>{
     const requestId=req.params.id;
     const cartItems=await Cart.find({custId:requestId})
@@ -398,12 +215,6 @@ app.post('/login',async (req,res)=>{
         }
     })
 
-app.post('/appProducts',(req,res)=>{
-    const {productName,productPrice,categoryName,productDescription,productImageUrl}=req.body;
-    const newProduct= new appProducts({productName,productPrice,categoryName,productImageUrl,productDescription});
-    newProduct.save();
-    return res.status(200).json({message:'Product added successfully',data:{newProduct},result:true})
-})
 app.post('/addtocart',async (req,res)=>{
     const {custId,productId,quantity}=req.body;
     const cartItemPresent=await Cart.findOne({custId:custId,productId:productId});
