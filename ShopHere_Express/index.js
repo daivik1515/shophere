@@ -13,6 +13,7 @@ const { GridFSBucket } = require('mongodb');
 const Grid = require('gridfs-stream');
 const bodyParser = require('body-parser');
 const AppProduct = require('./models/shoprHereProducts');
+const placeOrder = require('./models/placeOrder');
 
 // const crypto = require('crypto');
 
@@ -194,9 +195,17 @@ app.get('/getcustomercart/:id',async (req,res)=>{
     .populate('productId')
     .populate('custId')
     .exec();
-    // console.log(cartItems);
     return res.status(200).json({message:'Cart Products Retrieved',data:cartItems,result:true})
     
+})
+
+app.get('/placeOrder/:id',async(req,res)=>{
+    const requestId=req.params.id;
+    const previousOrders=await placeOrder.find({customer:requestId})
+    .populate('products')
+    .populate('customer')
+    .exec();
+    return res.status(200).json({message:'Previous Orders Retrieved',data:previousOrders,result:true})
 })
 
 app.get('/', async (req, res) => {
@@ -272,6 +281,13 @@ app.post('/addtocart',async (req,res)=>{
     }
     
     return res.status(200).json({message:'Product added to cart',data:{},result:true})
+})
+
+app.post('/placeOrder',async(req,res)=>{
+    const {customer,email,products,shippingAddress}=req.body;
+    const orderData=new placeOrder({customer,email,products,shippingAddress});
+    orderData.save();
+    return res.status(200).json({message:'Order Placed Successfully!',data:{},result:true})
 })
 
 
